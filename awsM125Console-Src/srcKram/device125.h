@@ -3,9 +3,6 @@
 
 #include <QObject>
 #include <QtCore>
-#include <QCoreApplication>
-//#include <QApplication>
-
 #include <QUdpSocket>
 #include <QTimer>
 #include <QThread>
@@ -50,8 +47,7 @@
 #define max_acc_az_p 3.0
 #define max_acc_um_p 3.0
  class QObject;
-class Device125:public QObject//,QThread
-//typedef struct
+class Device125:public QObject
 {
    Q_OBJECT
 public:
@@ -62,9 +58,6 @@ public:
     enum device_type {unv,pusk,nodevice};
     enum device_mode {combat,training};
 
-
-    void Device125_init();
- //   void set_connect(int mode_udp);
 
     inline int32_t double_to_lenze(double n){return ((int)(n*10000.0));}
     inline double lenze_to_double(int32_t n){return (double(n)/10000.0);}
@@ -126,13 +119,14 @@ public:
                                       if(mode == combat)
                                       {p_receive = &receive;
                                         p_send = &send;
-                                         p_ip = &ip_combat;}
+                                         p_ip = &ip_combat;
+                                      model_on_of(off);}
 
                                         else {p_receive = &receive_training;
                                                p_send = &send_training;
                                                 p_ip = &ip_training;
 
-                                        open_socket();
+
                                       if(type == unv)
                                           set_parameter_model(cmax_vel_az,
                                                               cmax_acc_az,
@@ -146,58 +140,54 @@ public:
                                                              max_acc_um_p
                                                   );
 
-
+                                            model_on_of(on);
                                       }
-               exch.close();
-               exch.bind(QHostAddress(*p_ip),port_125);
+               exch->close();
+               exch->bind(*p_ip,port_125);
                                      }
     inline int get_mode(void){return mode;}
-    inline uint32_t get_ip_adress() {return *p_ip;}
+
+  //  inline uint32_t get_ip_adress() {return *p_ip;}
+    inline QHostAddress get_ip_adress() {return *p_ip;}
 
     int type=nodevice;
+
     inline void set_type(int typein) {type = typein;}
     inline int get_type(void){return type;}
 
-    uint32_t ip_combat,ip_training,ip_tmp,*p_ip ;
+
     inline char * get_adr_send(void) {return (char*)p_send;}
     inline int get_len_send(void) {return sizeof(*p_send);}
 
     inline char * get_adr_receive(void) {return (char*)p_receive;}
     inline int get_len_receive(void) {return sizeof(*p_receive);}
 
+    inline char * get_tmp_adr_receive(void) {return (char*)&receive_tmp;}
+    inline int get_tmp_len_receive(void) {return sizeof(receive_tmp);}
 
-    void target_motion();
-
-    void udpSocket();
-
-    void timeout();
-
+    inline void set_id_packet(int pk) {p_send->ID_packet = pk;}
+    inline int  get_id_packet(void) {return p_receive->ID_packet;}
 
     ClockRealTime rt;
 
     uint16_t      port_dev = port_125;
 
-    int status;
-    int cnt=0;
-    int device_s;
-    struct sockaddr_in device_drive,device_tmp;
-    socklen_t  slen_device = sizeof(device_tmp);
-    bool connectStatus_device ;
+   QHostAddress ip_combat,ip_training,ip_tmp,*p_ip;
 
-    QUdpSocket exch;
-    QTimer  timer;
+    QUdpSocket *exch;
+    QTimer  *timer;
 
-void receive_packet(void);
-void send_packet   (void);
 
-void open_socket(void);
 public slots:
-void slot_receive_packet(void);
-void slot_timer_task(void);
+
+void slot_timeout(void);
 void slot_udpServer(void);
 
+signals:
+void sig_timeout(void);
 
 private:
+int old_ID_packet;
 
   //Структура данных обмена — АПУ->УНВ  и пусковых
 
@@ -209,7 +199,9 @@ private:
     /*8 */int32_t angle_pos_az;               //DINT 	(32) 		 Угловая координата азимута.
     /*12*/int32_t angle_pos_elv ;            //DINT 	(32) 		 Угловая координата угла места.
     /*16*/int32_t angle_speed_az ;           //DINT 	(32) 		 Угловая скорость по азимуту.
-    /*20*/int32_t angle_speed_elv ;          //DINT 	(32) 		 Угловая скорость по углу места.
+    /*20*/int32_t angle_speed_elv ;
+
+  //DINT 	(32) 		 Угловая скорость по углу места.
     /*24*/uint32_t send_SDO1;                 //UDINT[2] (64)         данные для записи по кодам/субкодвм. На передачу.
     /*28*/uint32_t send_SDO2;                 //UDINT[2] (64)	 	 данные для записи по кодам/субкодвм На передачу.
     /*30*/uint16_t code_az;       //WORD (16)		Номер кода  в запросе.(азимут).(Номер кода внутри блока управления приводом)
@@ -306,7 +298,7 @@ private:
 inline void set_parameter_model(double max_vel_az,double max_acc_az,double max_vel_um,double max_acc_um)
 {
     tpaz.max_vel = max_vel_az;tpaz.max_acc = max_acc_az;
-    tpum.max_vel = max_vel_um;tpaz.max_acc = max_acc_um;
+    tpum.max_vel = max_vel_um;tpum.max_acc = max_acc_um;
 
 }
 enum on_off {off,on};

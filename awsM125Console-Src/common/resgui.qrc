@@ -1,0 +1,86 @@
+<RCC>
+    <qresource prefix="/background">
+        <file>resgui/background/bronzeLibre2.png</file>
+        <file>resgui/background/trnsprnt.png</file>
+    </qresource>
+    <qresource prefix="/InfoInd">
+        <file>resgui/infoind/ind_gray.png</file>
+        <file>resgui/infoind/ind_green.png</file>
+        <file>resgui/infoind/ind_red.png</file>
+        <file>resgui/infoind/ind_green2.png</file>
+        <file>resgui/infoind/ind_green3.png</file>
+        <file>resgui/infoind/ind_green7.png</file>
+        <file>resgui/infoind/ind_green71.png</file>
+        <file>resgui/infoind/ind_green72.png</file>
+        <file>resgui/infoind/ind_red7.png</file>
+        <file>resgui/infoind/ind_gray7.png</file>
+        <file>resgui/infoind/ind_gray72.png</file>
+        <file>resgui/infoind/ind_darkGreen01.png</file>
+        <file>resgui/infoind/ind_darkRed01.png</file>
+    </qresource>
+    <qresource prefix="/AzScales">
+        <file>resgui/AzimuthScales/freq01.png</file>
+        <file>resgui/AzimuthScales/termo01.png</file>
+        <file>resgui/AzimuthScales/termo01disabled.png</file>
+        <file>resgui/AzimuthScales/termo02disabled.png</file>
+        <file>resgui/AzimuthScales/termo03disabled.png</file>
+        <file>resgui/AzimuthScales/termo03.png</file>
+        <file>resgui/AzimuthScales/termo05.png</file>
+        <file>resgui/AzimuthScales/mano01.png</file>
+        <file>resgui/AzimuthScales/mano03.png</file>
+        <file>resgui/AzimuthScales/brightn047.png</file>
+        <file>resgui/AzimuthScales/brightn0471.png</file>
+        <file>resgui/AzimuthScales/brightn048.png</file>
+        <file>resgui/AzimuthScales/brightn0472.png</file>
+        <file>resgui/AzimuthScales/brightn0473.png</file>
+        <file>resgui/AzimuthScales/brightn0481.png</file>
+        <file>resgui/AzimuthScales/brightn0482.png</file>
+        <file>resgui/AzimuthScales/scale05.png</file>
+        <file>resgui/AzimuthScales/gLong.png</file>
+        <file>resgui/AzimuthScales/g360.png</file>
+        <file>resgui/AzimuthScales/zoom0542dis.png</file>
+        <file>resgui/AzimuthScales/zoom0542.png</file>
+        <file>resgui/AzimuthScales/zoom_H_024dis.png</file>
+        <file>resgui/AzimuthScales/zoom_H_024.png</file>
+        <file>resgui/AzimuthScales/zoom_H_023.png</file>
+        <file>resgui/AzimuthScales/zoom_H_0231.png</file>
+    </qresource>
+    <qresource prefix="/Track">
+        <file>resgui/Track/kraz.png</file>
+        <file>resgui/Track/unv3.png</file>
+    </qresource>
+    <qresource prefix="/chb2">
+        <file>resgui/checkBtn2/checkBox16SmallChecked.png</file>
+        <file>resgui/checkBtn2/checkBox16SmallCheckedDis.png</file>
+        <file>resgui/checkBtn2/checkBox16SmallUnChecked.png</file>
+        <file>resgui/checkBtn2/checkBox16SmallUnCheckedDis.png</file>
+    </qresource>
+    <qresource prefix="/rb2">
+        <file>resgui/radioBtn2/radioOff.png</file>
+        <file>resgui/radioBtn2/radioOn.png</file>
+        <file>resgui/radioBtn2/radioOn17_2disabl01on.png</file>
+        <file>resgui/radioBtn2/radioOn17_2disabl0101ff.png</file>
+        <file>resgui/radioBtn2/radioOn17_3disOff.png</file>
+        <file>resgui/radioBtn2/radioOn17_3disOn.png</file>
+        <file>resgui/radioBtn2/radioOn17_4dis.png</file>
+        <file>resgui/radioBtn2/radioOn17_41dis.png</file>
+        <file>resgui/radioBtn2/radioOn17_41disOff.png</file>
+    </qresource>
+    <qresource prefix="/slider">
+        <file>resgui/slider/sliderHandle022.png</file>
+        <file>resgui/slider/sliderHandle022disable03.png</file>
+        <file>resgui/slider/sliderHandleHoriz022.png</file>
+    </qresource>
+    <qresource prefix="/b_ind2">
+        <file>resgui/b_ind2/buttonIndGray023.png</file>
+        <file>resgui/b_ind2/buttonIndGreen023.png</file>
+        <file>resgui/b_ind2/buttonIndRed023.png</file>
+    </qresource>
+    <qresource prefix="/spinbox">
+        <file>resgui/spinbox/dn55.png</file>
+        <file>resgui/spinbox/up55.png</file>
+    </qresource>
+    <qresource prefix="/Icons">
+        <file>resgui/Icons/exit24.png</file>
+    </qresource>
+</RCC>

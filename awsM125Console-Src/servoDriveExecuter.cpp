@@ -4,7 +4,7 @@
 //#define real_work
 
 //--------------------------ADD Kramarenko A.V.-----19.03.2018-----------------------
-extern Drive125 drive_unit;
+extern  Drive125 *drive_unit;
 //----------------------------------------------------------------------------------------
 
 extern float convert360angle2PlusMinus180(float dltAz360);
@@ -84,7 +84,7 @@ void servoDriveExecuter()
                         if(deltaAz < -180)
                             deltaAz += 360.0;
 
-                drive_unit.unv.device_setpos_az(drive_unit.unv.device_getpos_az()+ deltaAz);
+                drive_unit->unv->device_setpos_az(drive_unit->unv->device_getpos_az()+ deltaAz);
 
                         float deltaMax = 2.5;
 
@@ -113,8 +113,8 @@ void servoDriveExecuter()
                 //else
                     //snrInfoG.directrisaAzimuth += oficerNaved2Console.guidanceOfficerCmds.servoDriveDelta[AZIMUTH];
 
-                drive_unit.unv.device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + oficerNaved2Console.guidanceOfficerCmds.servoDriveDelta[AZIMUTH]));   //  2018-05-08
-                snrInfoG.directrisaAzimuth = drive_unit.unv.device_getpos_az();                                                                                                    //  2018-05-08
+                drive_unit->unv->device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + oficerNaved2Console.guidanceOfficerCmds.servoDriveDelta[AZIMUTH]));   //  2018-05-08
+                snrInfoG.directrisaAzimuth = drive_unit->unv->device_getpos_az();                                                                                                    //  2018-05-08
             }
 
             if(komKomM.srv[AZIMUTH].executeCounter % 10 > 0)    // отработка клика мыши по шкале азимута командиром
@@ -130,8 +130,8 @@ void servoDriveExecuter()
 //                    else
 //                        snrInfoG.directrisaAzimuth += komKomM.srv[AZIMUTH].delta;
 
-                    drive_unit.unv.device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + komKomM.srv[AZIMUTH].delta));  //  2018-05-08
-                    snrInfoG.directrisaAzimuth = drive_unit.unv.device_getpos_az();                                                             //  2018-05-08
+                    drive_unit->unv->device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + komKomM.srv[AZIMUTH].delta));  //  2018-05-08
+                    snrInfoG.directrisaAzimuth = drive_unit->unv->device_getpos_az();                                                             //  2018-05-08
                 }
                 else
                     if(komKomM.srv[AZIMUTH].executeCounter / 10 < snrInfoG.komJustExecuteCounter[AZIMUTH])   // случай когда АРМ командира был перезапущен
@@ -140,7 +140,7 @@ void servoDriveExecuter()
 
             if(oficerNaved2Console.guidanceOfficerCmds.servoDriveExecute[ELEVANG])    // отработка клика мыши по угломестной шкале
             {
-                drive_unit.unv.device_setpos_elv(drive_unit.unv.device_getpos_elv() + oficerNaved2Console.guidanceOfficerCmds.servoDriveDelta[ELEVANG]);
+                drive_unit->unv->device_setpos_elv(drive_unit->unv->device_getpos_elv() + oficerNaved2Console.guidanceOfficerCmds.servoDriveDelta[ELEVANG]);
             }
 
             if(komKomM.srv[ELEVANG].executeCounter % 10 > 0)    // отработка клика мыши по угломестной шкале командиром
@@ -148,7 +148,7 @@ void servoDriveExecuter()
                 if(komKomM.srv[ELEVANG].executeCounter / 10 > snrInfoG.komJustExecuteCounter[ELEVANG])  // это действительно новый клик
                 {                    
                     snrInfoG.komJustExecuteCounter[ELEVANG] = komKomM.srv[ELEVANG].executeCounter / 10;
-                    drive_unit.unv.device_setpos_elv(drive_unit.unv.device_getpos_elv() + komKomM.srv[ELEVANG].delta);
+                    drive_unit->unv->device_setpos_elv(drive_unit->unv->device_getpos_elv() + komKomM.srv[ELEVANG].delta);
                 }
                 else
                     if(komKomM.srv[ELEVANG].executeCounter / 10 < snrInfoG.komJustExecuteCounter[ELEVANG])   // случай когда АРМ командира был перезапущен
@@ -161,7 +161,7 @@ void servoDriveExecuter()
             if(snrInfoG.rejimPoiskaSNR == RejimPoiskaSNR::POISK_BSP ||      // сканирования было включено,
                snrInfoG.rejimPoiskaSNR == RejimPoiskaSNR::POISK_MSP)        // выключаем сканирование и возвращаем УНВ на директрису
             {
-                drive_unit.unv.device_setpos_az(snrInfoG.directrisaAzimuth);
+                drive_unit->unv->device_setpos_az(snrInfoG.directrisaAzimuth);
             }
         }
         else    // офицер наведения включил или поиск или захват
@@ -170,9 +170,9 @@ void servoDriveExecuter()
             {
                 if(snrInfoG.rejimPoiskaSNR == RejimPoiskaSNR::POISK_BSP || snrInfoG.rejimPoiskaSNR == RejimPoiskaSNR::POISK_MSP) //if(currentUNVScanIsOn)  // сканирование продолжается
                 {
-                    drive_unit.unv.device_setpos_az(snrInfoG.directrisaAzimuth + directFactor * snrInfoG.azimuthScanSectorHalfWidth);
+                    drive_unit->unv->device_setpos_az(snrInfoG.directrisaAzimuth + directFactor * snrInfoG.azimuthScanSectorHalfWidth);
 
-                    if(fabs(convert360angle2PlusMinus180(drive_unit.unv.device_getpos_az() - snrInfoG.currentAzimuth)) < 0.1)  // дошли до границы сектора - возвращаемся
+                    if(fabs(convert360angle2PlusMinus180(drive_unit->unv->device_getpos_az() - snrInfoG.currentAzimuth)) < 0.1)  // дошли до границы сектора - возвращаемся
                     {
                         unvClockwiseScanDirection = !unvClockwiseScanDirection;
 
@@ -189,7 +189,7 @@ void servoDriveExecuter()
                     ////////////////////   //  2018-05-08   //  2018-05-08  //  2018-05-08            snrInfoG.directrisaAzimuth = snrInfoG.currentAzimuth;  // при включении сканирования запоминаем директрису
 
                     unvClockwiseScanDirection = true;
-                    drive_unit.unv.device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + snrInfoG.azimuthScanSectorHalfWidth));    //  2018-05-08
+                    drive_unit->unv->device_setpos_az(convert360angle2PlusMinus180(snrInfoG.directrisaAzimuth + snrInfoG.azimuthScanSectorHalfWidth));    //  2018-05-08
                 }
             }
             else    // офицер наведения включил захват, в режиме тренажа при АС сопровождение вкючится само, когда сервопривод отработает азимут
@@ -200,8 +200,8 @@ void servoDriveExecuter()
                     if(snrInfoG.rejimSoprovojdeniaSNR == SOPROVOJDENIE_AS ||            // в режиме тренажа АС по углам
                             snrInfoG.rejimPoiskaSNR == POISK_PEREKLYCHEN_V_ZAHVAT)      // и отработка ЦУ по углам в РС без ошибок
                     {
-                        drive_unit.unv.device_setpos_az(snrInfoG.nextTocka[oficerNaved2Console.guidanceOfficerCmds.targetIndexCY].azimuth360);
-                        drive_unit.unv.device_setpos_elv(snrInfoG.nextTocka[oficerNaved2Console.guidanceOfficerCmds.targetIndexCY].elevationAngle);
+                        drive_unit->unv->device_setpos_az(snrInfoG.nextTocka[oficerNaved2Console.guidanceOfficerCmds.targetIndexCY].azimuth360);
+                        drive_unit->unv->device_setpos_elv(snrInfoG.nextTocka[oficerNaved2Console.guidanceOfficerCmds.targetIndexCY].elevationAngle);
                     }
                     else    // РС по углам ведется по штурвалам операторов
                     {
@@ -210,8 +210,8 @@ void servoDriveExecuter()
 
                         //float dElAngSpeed = 0; float dAzimSpeed = 0.01 * shMemU2C.guidanceOfficerCmds.integerValue4Test;    //  тест с помощью слайдера
 
-                        drive_unit.unv.device_setpos_az(drive_unit.unv.device_getpos_az() + dAzimSpeed);    //  штатный режим
-                        drive_unit.unv.device_setpos_elv(drive_unit.unv.device_getpos_elv() + dElAngSpeed);   //  штатный режим
+                        drive_unit->unv->device_setpos_az(drive_unit->unv->device_getpos_az() + dAzimSpeed);    //  штатный режим
+                        drive_unit->unv->device_setpos_elv(drive_unit->unv->device_getpos_elv() + dElAngSpeed);   //  штатный режим
                     }
 
                     float deltaMax = 0.3;
@@ -246,21 +246,21 @@ void servoDriveExecuter()
  //   p2.max_acc = 10;
  //   p2.max_vel = 10;
 
-    if(drive_unit.unv.device_getpos_elv()/*p2.pos_cmd>84*/ > 72.0)
-        drive_unit.unv.device_setpos_elv(72.0)/*p2.pos_cmd = 84.0*/;
+    if(drive_unit->unv->device_getpos_elv()/*p2.pos_cmd>84*/ > 72.0)
+        drive_unit->unv->device_setpos_elv(72.0)/*p2.pos_cmd = 84.0*/;
 
-    if(drive_unit.unv.device_getpos_elv()/*p2.pos_cmd*/ < -2.0)
-        drive_unit.unv.device_setpos_elv(/*p2.pos_cmd =*/ -2.0);
+    if(drive_unit->unv->device_getpos_elv()/*p2.pos_cmd*/ < -2.0)
+        drive_unit->unv->device_setpos_elv(/*p2.pos_cmd =*/ -2.0);
 
 
 //    if(komKomM.servoDriveSimulation == false)   // Р А Б О Т А   С   Р Е А Л Ь Н Ы М   С Е Р В О П Р И В О Д О М
-//    drive_unit.unv.set_mode(drive_unit.unv.combat);
+//    drive_unit->unv.set_mode(drive_unit->unv.combat);
 //    else
-//    drive_unit.unv.set_mode(drive_unit.unv.training);
+//    drive_unit->unv.set_mode(drive_unit->unv.training);
 
     //-------------------------------------------------------------------
 
-    snrInfoG.currentAzimuth = drive_unit.unv.device_getpos_az();
+    snrInfoG.currentAzimuth = drive_unit->unv->device_getpos_az();
 
     int popravka_na_oboroti = snrInfoG.currentAzimuth / 360.0;
     snrInfoG.currentAzimuth -= 360.0 * popravka_na_oboroti;
@@ -271,7 +271,7 @@ void servoDriveExecuter()
     if(snrInfoG.currentAzimuth >= 360.0)
         snrInfoG.currentAzimuth -= 360.0;    
 
-    snrInfoG.currentDirectrisaElevationAngle = drive_unit.unv.device_getpos_elv();
+    snrInfoG.currentDirectrisaElevationAngle = drive_unit->unv->device_getpos_elv();
 
     //if(settings->servoDriveDiagnostic == 12345)
       //  qDebug()<<"servoDriveExecuter settings->servoDriveDiagnostic:"<<settings->servoDriveDiagnostic;

@@ -12,7 +12,7 @@ DESTDIR = $$_PRO_FILE_PWD_/../
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
+SOURCES += \
     threadsAll.cpp \
     threadCnvEth485.cpp \
     threadDiagnosticMonitor.cpp \
@@ -27,14 +27,23 @@ SOURCES += main.cpp \
     threadVKP.cpp \
     threadCommander.cpp \
     threadGuidanceOfficer.cpp \
-    ../../aws125CommonSrc/sharedMemoryOptions.cpp \
-    ../../aws125CommonSrc/tcpSocketOptions.cpp \
-    ../../aws125CommonSrc/commonUtils.cpp \
+#    ../../aws125CommonSrc/sharedMemoryOptions.cpp \
+#    ../../aws125CommonSrc/tcpSocketOptions.cpp \
+#    ../../aws125CommonSrc/commonUtils.cpp \
     threadSimulator.cpp \
     threadP18.cpp \ #\
     srcKram/clockrealtime.cpp \
     srcKram/device125.cpp \
-    srcKram/Drive125.cpp
+    srcKram/Drive125.cpp \
+    common/aws125CommonSrc/commonUtils.cpp \
+ #   common/aws125CommonSrc/crc16Utils.cpp \
+#    common/aws125CommonSrc/diagnParserUtils.cpp \
+ #   common/aws125CommonSrc/drawScales.cpp \
+#    common/aws125CommonSrc/multiLanguageSupport.cpp \
+    common/aws125CommonSrc/sharedMemoryOptions.cpp \
+    common/aws125CommonSrc/tcpSocketOptions.cpp \
+    main_console.cpp \
+    srcKram/main.cpp
 
 
 
@@ -58,7 +67,7 @@ HEADERS += \
     srcKram/device125.h \
     srcKram/Drive125.h
 
-INCLUDEPATH += ../../aws125CommonInclude
+INCLUDEPATH += Common
 #                /opt/menlinux/INCLUDE/COM\
 #               /opt/menlinux/INCLUDE/NATIVE\
 

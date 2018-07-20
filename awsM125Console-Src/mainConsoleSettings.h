@@ -9,7 +9,7 @@
 //#include <arpa/inet.h>
 #include <pwd.h>
 
-#include "../../aws125CommonInclude/zrkServiceInfo.h"
+#include "common/zrkServiceInfo.h"
 
 class SettingsConsoleM : QObject
 {

@@ -13,6 +13,7 @@
 
 #include "clockrealtime.h"
 #include "device125.h"
+#include "Drive125.h"
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -20,12 +21,9 @@
 
 #include <sys/times.h>
 #include <signal.h>
+#include <QCoreApplication>
 
-//#ifdef Kramarenko
-//#define task_interval 20
-//#else
-//#define task_interval 35
-//#endif
+
 
 #define main_clock_works 20
 #define time_outs 10
@@ -38,44 +36,34 @@
 #define N_ID_lenze_elv      0x3A // (58)	Привод угла места.
 #define N_ID_PLC            0x39 // (57)	PLC Schneider.
 
-extern class Drive125 drive_unit;
+class Drive125:public QObject//,*/QThread
 
-//void * ProcessThreadServoDrive(void * temp_pt );
-
-
-class Drive125:public QObject//,QThread
-//typedef struct
 {
     Q_OBJECT
  public:
 
     explicit Drive125(QObject *parent = nullptr);
     ~Drive125();
-  void Drive125_init();
 
-//void *ProcessThreadServoDrive(void * temp_pt );
-    Device125 unv,p1,p2,p3,p4;
+    Device125 *unv,*p1,*p2,*p3,*p4;
+
+
 public slots:
 void slot_receive_packet(void);
 void slot_timer_task(void);
-inline uint32_t get_ip_apu(void) {return *apu_ip;}
+void slot_timeout_unv(void);
+void slot_timeout_p1(void);
+void slot_timeout_p2(void);
+void slot_timeout_p3(void);
+void slot_timeout_p4(void);
+
+
 private:
-    int status;
-    int cnt=0;
-    int apu_s;
-    struct sockaddr_in apu_drive,apu_tmp;
-    socklen_t  slen_apu = sizeof(apu_tmp);
-    bool connectStatus_apu ;
 
-QThread *trd;
- //   event
+
+int count=0;
 QUdpSocket *exch;
-QTimer *timer;
-uint32_t ip_apu,ip_apu_training,*apu_ip ;
-
-//void send_packet   (void);
-
-//void open_socket(void);
+QTimer *mono1,*mono2,*mono3,*mono4,*mono5,*main_timer;
 
 
 };// Drive125;

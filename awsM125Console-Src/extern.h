@@ -3,15 +3,15 @@
 #include <QTime>
 #include <QDebug>
 
-#include "../../aws125CommonInclude/sharedMem.h"
-#include "../../aws125CommonInclude/externCommon.h"
-#include "../../aws125CommonInclude/sys.h"
+#include "common/sharedMem.h"
+#include "common/externCommon.h"
+#include "common/sys.h"
 #include "threadstatus.h"
 //#include "srcKram/tp.h"
 #include "mainConsoleSettings.h"
 #include  "srcKram/Drive125.h"
 
-extern class Drive125 drive_unit;
+extern class Drive125 *drive_unit;
 
 extern START_INFO startInfoG;
 extern VKP2ZRK vkp2zrkG;
