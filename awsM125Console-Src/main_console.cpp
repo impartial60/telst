@@ -114,23 +114,6 @@ int main_console(int argc, char *argv[])
 
     snrInfoG.ironBtnsG.isHoldingDown = false;
 
-  //  drive_unit = new Drive125;
- //   printf("Servo drive controll init\n");
-
-//    p1.active=0;
-//    p1.curr_pos=snrInfoG.currentAzimuth;
-//    p1.curr_vel=0;
-//    p1.enable=1;
-//    p1.max_acc=max_accel_const;
-//    p1.max_vel=max_vel_const;
-//    p1.pos_cmd=snrInfoG.currentAzimuth;
-//    p2.active=0;
-//    p2.curr_pos=snrInfoG.currentDirectrisaElevationAngle;
-//    p2.curr_vel=0;
-//    p2.enable=1;
-//    p2.max_acc=max_accel_const;
-//    p2.max_vel=max_vel_const;
-//    p2.pos_cmd=snrInfoG.currentDirectrisaElevationAngle;
 
     pthread_create( &pthreadAll, NULL, Process_All_Threads, NULL );
     qDebug()<<"pthreadAll: pthread_create";

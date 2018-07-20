@@ -24,12 +24,12 @@ p4->ip_training = QHostAddress(QString("127.0.0.105"));
     unv->set_type(unv->unv);
     unv->set_mode(unv->training);
     p1->set_type(p1->pusk);
-    p1->set_mode(p1->training);
-    p2->set_type(p2->pusk);
+    p1->set_mode(p1->combat);
+    p2->set_type(p2->nodevice);
     p2->set_mode(p2->training);
-    p3->set_type(p3->pusk);
+    p3->set_type(p3->nodevice);
     p3->set_mode(p3->training);
-    p4->set_type(p4->pusk);
+    p4->set_type(p4->nodevice);
     p4->set_mode(p4->training);
 
 

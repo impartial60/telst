@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QTime>
-#include <QThread>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,10 +66,7 @@ extern pid_t proc_find(const char* name, long secondPid);
 
 int main(int argc, char *argv[])
 {    
-
-
     (void)argc; (void)argv;
-
 
 
 
@@ -117,8 +113,8 @@ int main(int argc, char *argv[])
 
     snrInfoG.ironBtnsG.isHoldingDown = false;
 
- //   drive_unit = new Drive125;
- //   printf("Servo drive controll init\n");
+    drive_unit.Drive125_init();
+printf("Servo driver controll init\n");
 
 //    p1.active=0;
 //    p1.curr_pos=snrInfoG.currentAzimuth;

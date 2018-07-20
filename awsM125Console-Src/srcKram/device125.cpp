@@ -151,11 +151,11 @@ void Device125::slot_udpServer(void)
 
    tp_update();
 
-    tpaz.enable = p_send->az_on?1:0;
-    tpum.enable = p_send->elv_on?1:0;
+//    tpaz.enable = p_send->az_on?1:0;
+//    tpum.enable = p_send->elv_on?1:0;
 
-    tpaz.pos_cmd = device_getpos_az();
-    tpum.pos_cmd = device_getpos_elv();
+    tpaz.pos_cmd = p_send->angle_pos_az;
+    tpum.pos_cmd = p_send->angle_pos_elv;
 
     p_receive->ID_packet = p_send->ID_packet;
 

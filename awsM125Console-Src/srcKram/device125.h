@@ -115,13 +115,15 @@ public:
     double time_diff;
 
     int mode=combat;
-    inline void set_mode(int modein) {mode = modein;
+    inline void set_mode(int modein) {
+                                      mode = modein;
+
                                       if(mode == combat)
                                       {p_receive = &receive;
                                         p_send = &send;
                                          p_ip = &ip_combat;
-                                      model_on_of(off);}
-
+                                      model_on_of(off);
+                                      }
                                         else {p_receive = &receive_training;
                                                p_send = &send_training;
                                                 p_ip = &ip_training;
@@ -142,8 +144,10 @@ public:
 
                                             model_on_of(on);
                                       }
+
                exch->close();
                exch->bind(*p_ip,port_125);
+
                                      }
     inline int get_mode(void){return mode;}
 
